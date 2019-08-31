@@ -33,23 +33,31 @@ Framework для верстки - bootstrap
 
 ## Модели данных/Сущности
 ### Страна
+    Описание находится /server/controllers/countryController.js
 ### Населенный пункт/Город
+    Описание находится /server/controllers/cityController.js
 ### Сотовый телефон
+    Описание находится /server/controllers/phoneController.js
 ### Адрес электронной почты
+    Описание находится /server/controllers/emailController.js
 ### Сайт
+    Описание находится /server/controllers/wwwController.js
 ### Персона
+    Описание находится /server/controllers/personController.js
 ### Контакт
+    Описание находится /server/controllers/contactController.js
 ### Пользователь
+    Описание находится /server/controllers/userController.js
 ### Организация
+    Описание находится /server/controllers/orgController.js
 
 
 
 ## Роли
 1. Куратор - Олег Шиков
-1. Product owner - Танкибаев Абзал(https://github.com/AbzalT)
-2. Дизайнер - ?
-3. Разработчик FrontEnd - Никита(https://github.com/nikitabor1)
-4. Разработчик FrontEnd - Сезько Яна(https://github.com/YanaSezko)
-5. Разработчик FrontEnd/JS - Кадискалиев Бауржан(https://github.com/BaurzhanKadis)
-6. Разработчик FrontEnd - Гладилин Андрей(https://github.com/brdx1)
-7. Разработчик BackEnd -  Хокконен Марина(https://github.com/sunnyima)
+2. Product Owner / BackEnd - Танкибаев Абзал(https://github.com/AbzalT)
+3. FrontEnd - Никита(https://github.com/nikitabor1)
+4. FrontEnd / Designer - Сезько Яна(https://github.com/YanaSezko)
+5. FrontEnd / JS - Кадискалиев Бауржан(https://github.com/BaurzhanKadis)
+6. FrontEnd - Гладилин Андрей(https://github.com/brdx1)
+7. BackEnd -  Хокконен Марина(https://github.com/sunnyima)
