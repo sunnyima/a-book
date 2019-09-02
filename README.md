@@ -42,6 +42,8 @@ Framework для верстки - bootstrap
     Описание находится /server/controllers/emailController.js
 ### Сайт
     Описание находится /server/controllers/wwwController.js
+### Коммуникаторы
+    Описание находится /server/controllers/imController.js
 ### Персона
     Описание находится /server/controllers/personController.js
 ### Контакт
@@ -54,10 +56,11 @@ Framework для верстки - bootstrap
 
 
 ## Роли
-1. Куратор - Олег Шиков
+1. Куратор - Шиков Олег
 2. Product Owner / BackEnd - Танкибаев Абзал(https://github.com/AbzalT)
-3. FrontEnd - Никита(https://github.com/nikitabor1)
+3. FrontEnd - Бородин Никита(https://github.com/nikitabor1)
 4. FrontEnd / Designer - Сезько Яна(https://github.com/YanaSezko)
 5. FrontEnd / JS - Кадискалиев Бауржан(https://github.com/BaurzhanKadis)
 6. FrontEnd - Гладилин Андрей(https://github.com/brdx1)
-7. BackEnd -  Хокконен Марина(https://github.com/sunnyima)
+7. FrontEnd - Головей Илья(https://github.com/IlGoloviy)
+8. BackEnd -  Хокконен Марина(https://github.com/sunnyima)
