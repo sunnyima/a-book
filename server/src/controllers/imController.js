@@ -1,24 +1,31 @@
 const pool = require('../configs/configDB');
-const table = `countries`;
+const table = `ims`;
 
-class Country  {
+class Im  {
+    constructor(){
+        this.id = 0,
+        this.userId = 0,
+        this.contactId =0,
+        this.address = ''        
+    }
 
-    get(page = 1, limit = 1){
+    get(page = 1, limit = 1, userId){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);                
                 const offset = (page-1)*limit;
-                const sqlAll = `select * from ${table};`;
-                const sqlPage = `select * from ${table} limit ?,?;`;                
+                const sqlAll = `select * from  ${table} where userId = ? and contactId = ?;`;
+                const sqlPage = `select * from ${table} limit ?,? where userId = ? and contactId = ?;`;                
                 if (limit = 0) {
-                    connection.query(sqlAll, (err, result) => {
+                    const data = [userId, contactId];
+                    connection.query(sqlAll, data,(err, result) => {
                         if (err) return reject(err);
                         connection.release();
                         resolve(result);
                     });
                 } else {
-                    const data = [offset, limit];
-                    connection.query(sqlPage, data,(err, result) => {
+                    const data = [offset, limit, userId, contactId];
+                    connection.query(sqlPage, data, (err, result) => {
                         if (err) return reject(err);
                         connection.release();
                         resolve(result);
@@ -34,7 +41,7 @@ class Country  {
                 if (err) return reject(err);
                 const sql = `select * from ${table} where id = ?;`;
                 const data = [id];
-                connection.query(sql, data,(err, result) => {
+                connection.query(sql,data,(err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -43,13 +50,13 @@ class Country  {
         })
     };
 
-    add(country){
+    add(im){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
-                const sql = `insert into ${table} set ?;`;
-                const data = [country];
-                connection.query(sql,data, (err, result) => {
+                sql = `insert into ${table} set ?;`;
+                data = [im];
+                connection.query(sql, data, (err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -58,13 +65,13 @@ class Country  {
         })
     };
 
-    update(id,country){
+    update(id,im){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
                 const sql = `update ${table} set ? where id = ?;`;
-                const data = [country, id];
-                connection.query(sql, data, (err, result) => {
+                const data = [im,id];
+                connection.query(sql, data,(err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -77,10 +84,9 @@ class Country  {
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
-                //TODO Перед удалением проверить наличие городов у страны 
                 const sql = `delete from ${table} where id = ?;`;
                 const data = [id];
-                connection.query(sql, data, (err, result) => {
+                connection.query(sql,data, (err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -90,4 +96,4 @@ class Country  {
     };
 };
 
-module.exports = Country;
+module.exports = Im;
