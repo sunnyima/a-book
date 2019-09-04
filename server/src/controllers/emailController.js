@@ -9,7 +9,7 @@ class Email  {
         this.address = ''        
     }
 
-    get(page = 1, limit = 1, userId){
+    get(page = 1, limit = 1, userId, contactId){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);                

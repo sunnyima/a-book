@@ -11,22 +11,21 @@ class User  {
         this.orgId = ''                
     }
 
-    get(page = 1, limit = 1, userId){
+    get(page = 1, limit = 1){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);                
                 const offset = (page-1)*limit;
-                const sqlAll = `select * from  ${table} where userId = ?;`;
-                const sqlPage = `select * from ${table} limit ?,? where userId = ?;`;                
+                const sqlAll = `select * from  ${table};`;
+                const sqlPage = `select * from ${table} limit ?,?;`;                
                 if (limit = 0) {
-                    const data = [userId];
                     connection.query(sqlAll, data,(err, result) => {
                         if (err) return reject(err);
                         connection.release();
                         resolve(result);
                     });
                 } else {
-                    const data = [offset, limit, userId];
+                    const data = [offset, limit];
                     connection.query(sqlPage, data, (err, result) => {
                         if (err) return reject(err);
                         connection.release();
