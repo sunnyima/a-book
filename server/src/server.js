@@ -5,6 +5,8 @@ const countryController = require('./controllers/countryController');
 const cityController = require('./controllers/cityController');
 const srv = require('./configs/configSRV');
 
+const session = require('express-session');
+
 const app = express();
 
 // Получить список стран
@@ -71,3 +73,9 @@ app.delete('/api/cities/:id', async (req, res) => {
 app.listen(srv.PORT, ()=>{
     console.log(`Server started on ${srv.HOST}:${srv.PORT}`);
 });
+
+app.use( session({
+    secret : 'weeHYYUJnhbVDC',
+    resave : true,
+    saveUninitialized : false,
+}));
