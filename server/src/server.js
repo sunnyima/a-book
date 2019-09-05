@@ -5,9 +5,20 @@ const countryController = require('./controllers/countryController');
 const cityController = require('./controllers/cityController');
 const srv = require('./configs/configSRV');
 
-const session = require('express-session');
+const  userController = require('./controllers/userController');
 
 const app = express();
+
+const bodyParser = require('body-parser');
+
+// parse application/json
+app.use(bodyParser.json());
+//parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get('/', (request, response) => {
+    response.json({ message: 'Express is up!' });
+});
 
 // Получить список стран
 app.get('/api/countries', async (req, res) => {
@@ -69,13 +80,43 @@ app.delete('/api/cities/:id', async (req, res) => {
     res.send(result);
 });
 
+//For BodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.listen(srv.PORT, ()=>{
-    console.log(`Server started on ${srv.HOST}:${srv.PORT}`);
+app.use(bodyParser.json());
+
+// parse application/json
+app.use(bodyParser.json());//parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// get all users
+app.get('/api/users', function(req, res) {
+    userController.getAllUsers().then(user => res.json(user));
 });
 
-app.use( session({
-    secret : 'weeHYYUJnhbVDC',
-    resave : true,
-    saveUninitialized : false,
-}));
+// get all users
+app.get('/api/users/:id', function(req, res) {
+    userController.getUser(req.params.id).then(user => res.json(user));
+});
+
+// register route
+app.post('/api/register', function(req, res, next) {
+const { name, password } = req.body;
+    userController.createUser({ name, password }).then(user =>
+        res.json({ user, msg: 'account created successfully' })
+    );
+});
+
+/**
+ * TODO заменила функцию, не поняла как слушался порт в старом варианте
+ * app.listen(srv.PORT, ()=>{
+        console.log(`Server started on ${srv.HOST}:${srv.PORT}`);
+    });
+*/
+app.listen(srv.PORT.value, (err) => {
+    if (err) {
+        return console.log('something bad happened', err)
+    }
+    console.log(`server is listening on ${srv.HOST.value}:${srv.PORT.value}`)
+});
+

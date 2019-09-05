@@ -1,10 +1,13 @@
 const mysql = require('mysql');
 const options = {
-    host: 'localhost',
-    database: 'abookDB',
-    user: 'root',
-    password : 'mysql'
+    host: 'db4free.net',
+    database: 'abookdb',
+    port: 3306,
+    username: 'abookdb',
+    password : 'FeD4d1QOCV',
+    dialect : 'mysql',
 };
 var pool = mysql.createPool(options);
+const connection = mysql.createConnection(options);
 
-module.exports = pool;
+module.exports = {pool, connection,options};
