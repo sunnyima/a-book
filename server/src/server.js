@@ -96,7 +96,7 @@ app.get('/api/users', function(req, res) {
 
 // get all users
 app.get('/api/users/:id', function(req, res) {
-    userController.getUser(req.params.id).then(user => res.json(user));
+    userController.getUser({id: req.params.id}).then(user => res.json(user));
 });
 
 // register route
