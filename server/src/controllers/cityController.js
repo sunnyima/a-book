@@ -7,23 +7,40 @@ class City  {
         this.countryId = 0,
         this.name =''
     }
-    get(countryId){
+
+    get(page = 1, limit = 1, countryId){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
-                if (err) return reject(err);
-                connection.query('select * from ${table} where `countryId` = ?;', countryId,(err, result) => {
-                    if (err) return reject(err);
-                    connection.release();
-                    resolve(result);
-                });
+                if (err) return reject(err);                
+                const offset = (page-1)*limit;
+                const sqlAll = `select * from  ${table} where countryId = ?;`;
+                const sqlPage = `select * from ${table} limit ?,? where countryId = ?;`;                
+                if (limit = 0) {
+                    const data = [countryId];
+                    connection.query(sqlAll, data,(err, result) => {
+                        if (err) return reject(err);
+                        connection.release();
+                        resolve(result);
+                    });
+                } else {
+                    const data = [offset, limit, countryId];
+                    connection.query(sqlPage, data, (err, result) => {
+                        if (err) return reject(err);
+                        connection.release();
+                        resolve(result);
+                    });
+                }
             })
         })
     };
+
     details(id){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
-                connection.query('select * from `cities` where `id` = ?;',id,(err, result) => {
+                const sql = `select * from ${table} where id = ?;`;
+                const data = [id];
+                connection.query(sql,data,(err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -31,11 +48,14 @@ class City  {
             })
         })
     };
+
     add(city){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
-                connection.query('insert into `cities` set ?;',city, (err, result) => {
+                sql = `insert into ${table} set ?;`;
+                data = [city];
+                connection.query(sql, data, (err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -43,11 +63,14 @@ class City  {
             })
         })
     };
+
     update(id,city){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
-                connection.query('update `cities` set ? where `id` = ?;',[city,id],city, (err, result) => {
+                const sql = `update ${table} set ? where id = ?;`;
+                const data = [city,id];
+                connection.query(sql, data,(err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -55,11 +78,14 @@ class City  {
             })
         })
     };
+
     delete(id){
         return new Promise((resolve, reject) => {
             pool.getConnection((err, connection) => {
                 if (err) return reject(err);
-                connection.query('delete from `cities` where `id` = ?;',id, (err, result) => {
+                const sql = `delete from ${table} where id = ?;`;
+                const data = [id];
+                connection.query(sql,data, (err, result) => {
                     if (err) return reject(err);
                     connection.release();
                     resolve(result);
@@ -68,4 +94,5 @@ class City  {
         })
     };
 };
+
 module.exports = City;
