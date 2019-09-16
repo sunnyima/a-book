@@ -7,25 +7,6 @@ const sequelize = new Sequelize(options);// check the databse connection
 sequelize.authenticate()
     .then(() => console.log('Connection has been established successfully.'))
     .catch(err => console.error('Unable to connect to the database:', err));
-// create user model
-/*const User = sequelize.init('user', {
-   /!* id :{
-      type : sequelize.NUMBER,
-    },*!/
-    login: {
-        type: Sequelize.STRING,
-    },
-    password: {
-        type: Sequelize.STRING,
-        password
-    },
-    firstName: {
-        type: Sequelize.STRING,
-    },
-    lastName: {
-        type: Sequelize.STRING,
-    },
-});*/
 
 const User = sequelize.define('user', {
     // attributes

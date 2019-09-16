@@ -2,6 +2,7 @@
 
 // #region Vars
 const express = require('express');
+const bodyParser = require('body-parser');
 const City = require('./controllers/cityController');
 const Contact = require('./controllers/contactController');
 const Country =  require ('./controllers/countryController');
@@ -13,29 +14,15 @@ const Phone =  require ('./controllers/phoneController');
 const User =  require ('./controllers/userController');
 const Www =  require ('./controllers/wwwController');
 
+const userController =  require ('./controllers/userControllerSeq');
+const countryController = require('./controllers/countryControllerSeq');
+const cityController = require('./controllers/cityControllerSeq');
+
 
 const srv = require('./configs/configSRV');
 
-const  userController = require('./controllers/userController');
-
 const app = express();
 
-<<<<<<< HEAD
-const bodyParser = require('body-parser');
-
-// parse application/json
-app.use(bodyParser.json());
-//parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.get('/', (request, response) => {
-    response.json({ message: 'Express is up!' });
-});
-
-// Получить список стран
-app.get('/api/countries', async (req, res) => {
-    const result = await countryController.get();
-=======
 const city = new City();
 const contact = new Contact();
 const country = new Country();
@@ -50,118 +37,89 @@ const www = new Www();
 const itemALL = 0;
 const itemDefaultPerPage = 10;
 const itemMAXPerPage = 50;
-//#endregion
+
+//For BodyParser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 // #region Country
 // Country - Получить список всех стран
 // GET http://localhost/api/countries
 // GET http://localhost/api/countries?page=5&limit=5
-app.get('/api/countries', async (req, res) => {    
-    let page = parseInt(req.query.page, 10);
-    (isNaN(page) || page < 1)? (page = 1):(page = page);
-    let limit = parseInt(req.query.limit, 10);
-    /* if (isNaN(limit)) {
-        limit = itemDefaultPerPage;
-    } else if (limit > itemMAXPerPage) {
-        limit = itemMAXPerPage;
-    } else if (limit < 1) {
-        limit = itemALL; 
-    } */
-    (isNaN(limit)) ? 
-        (limit = itemDefaultPerPage):    
-        (
-            (limit > itemMAXPerPage) ? 
-                (limit = itemMAXPerPage) : 
-                (
-                    (limit < 1) ? 
-                        (limit = itemALL) : 
-                        (limit = limit)
-                )
-        );    
-    const result = await country.get(page, limit);
->>>>>>> upstream/master
-    res.send(result);
+app.get('/api/countries', async (req, res) => {
+    //TODO query by limit
+    //let page = parseInt(req.query.page, 10);
+    //let limit = parseInt(req.query.limit, 10);
+    countryController.getAllCountries().then(country => res.json(country));
 });
 
 // Country - Получить детализацию страны по id
 // GET http://localhost/api/countries/{id}
-app.get('/api/countries/:id', async (req, res) => {
-    const id = req.params.id;
-    const result = await country.details(id);
-    res.send(result);
+app.get('/api/countries/:id', function(req, res) {
+    countryController.getCountry({id: req.params.id}).then(country => res.json(country));
 });
 
-// Country - Добавить страну
-// POST http://localhost/api/countries
-app.post('/api/countries', async (req, res) => {
+/*// Country - Добавить страну
+// POST http://localhost:8888/api/countries/add
+// TODO
+app.post('/api/countries/add', async (req, res) => {
     const result = country.add(req.body);
     res.send(result);
-});
+});*/
 
-// Country - Изменить страну
-// POST http://localhost/api/countries/{id}
-app.post('/api/countries/:id', async (req, res) => {
+/*// Country - Изменить страну
+// POST http://localhost:8888/api/countries/{id}/update
+// TODO
+app.post('/api/countries/:id/update', async (req, res) => {
     const result = await country.update(req.params.id,req.body);
     res.send(result);
-});
+});*/
 
-// Country - Удалить страну по id
-// DELETE http://localhost/api/countries/{id}
-app.delete('/api/countries/:id', async (req, res) => {
+/*// Country - Удалить страну по id
+// DELETE http://localhost:8888/api/countries/{id}/delete
+// TODO
+app.delete('/api/countries/:id/delete', async (req, res) => {
     const result = await country.delete(req.params.id);
     res.send(result);
-});
-
+});*/
 //#endregion Country
 
 // #region City
 // City - Получить список городов определенной страны
 // GET http://localhost/api/countries/{countryId}/cities
-app.get('/api/countries/:countryId/cities', async (req, res) => {
-    const countryId = req.params.countryId;
-    const page = parseInt(req.query.page, 10);
-    if (isNaN(page) || page < 1) {
-        page = 1;
-    }
-    const limit = parseInt(req.query.limit, 10);
-    if (isNaN(limit)) {
-        limit = itemDefaultPerPage;
-    } else if (limit > itemMAXPerPage) {
-        limit = itemMAXPerPage;
-    } else if (limit < 1) {
-        limit = itemALL; 
-    }
-    const result = await city.get(page, limit, countryId);
-    res.send(result);
+app.get('/api/countries/:id/cities', function(req, res) {
+    cityController.getAllCountryCities({countryId: req.params.id}).then(city => res.json(city));
 });
 
 // City - Получить детализацию города по id
 // GET http://localhost/api/cities/{id}
 app.get('/api/cities/:id', async (req, res) => {
-    const result = await city.details(req.params.id);
-    res.send(result);
+    cityController.getCity({id: req.params.id}).then(city => res.json(city));
 });
 
-// City - Добавить город
-// POST http://localhost/api/cities
-app.post('/api/cities', async (req, res) => {
+/*// City - Добавить город
+// POST http://localhost/api/cities/add
+// TODO
+app.post('/api/cities/add', async (req, res) => {
     const result = city.add(req.body);
     res.send(result);
-});
+});*/
 
-// City - Изменить город
-// POST http://localhost/api/cities/{id}
-app.post('/api/cities/:id', async (req, res) => {
+/*// City - Изменить город
+// POST http://localhost/api/cities/{id}/update
+//TODO
+app.post('/api/cities/:id/update', async (req, res) => {
     const result = await city.update(req.params.id,req.body);
     res.send(result);
-});
+});*/
 
-// City - Удалить город по id
-// DELETE http://localhost/api/cities/{id}
+/*// City - Удалить город по id
+// DELETE http://localhost/api/cities/{id}/delete
+// TODO
 app.delete('/api/cities/:id', async (req, res) => {
     const result = await city.delete(req.params.id);
     res.send(result);
-});
+});*/
 //#endregion
 
 // #region Email
@@ -180,7 +138,7 @@ app.get('/api/contacts/:contactId/emails', async (req, res) => {
     } else if (limit > itemMAXPerPage) {
         limit = itemMAXPerPage;
     } else if (limit < 1) {
-        limit = itemALL; 
+        limit = itemALL;
     }
     const result = await email.get(page, limit, contactId);
     res.send(result);
@@ -231,7 +189,7 @@ app.get('/api/contacts/:contactId/phones', async (req, res) => {
     } else if (limit > itemMAXPerPage) {
         limit = itemMAXPerPage;
     } else if (limit < 1) {
-        limit = itemALL; 
+        limit = itemALL;
     }
     const result = await phone.get(page, limit, contactId);
     res.send(result);
@@ -282,7 +240,7 @@ app.get('/api/contacts/:contactId/www', async (req, res) => {
     } else if (limit > itemMAXPerPage) {
         limit = itemMAXPerPage;
     } else if (limit < 1) {
-        limit = itemALL; 
+        limit = itemALL;
     }
     const result = await www.get(page, limit, contactId);
     res.send(result);
@@ -333,7 +291,7 @@ app.get('/api/contacts/:contactId/ims', async (req, res) => {
     } else if (limit > itemMAXPerPage) {
         limit = itemMAXPerPage;
     } else if (limit < 1) {
-        limit = itemALL; 
+        limit = itemALL;
     }
     const result = await im.get(page, limit, contactId);
     res.send(result);
@@ -360,48 +318,6 @@ app.post('/api/ims/:id', async (req, res) => {
     res.send(result);
 });
 
-<<<<<<< HEAD
-//For BodyParser
-app.use(bodyParser.urlencoded({ extended: true }));
-
-app.use(bodyParser.json());
-
-// parse application/json
-app.use(bodyParser.json());//parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// get all users
-app.get('/api/users', function(req, res) {
-    userController.getAllUsers().then(user => res.json(user));
-});
-
-// get all users
-app.get('/api/users/:id', function(req, res) {
-    userController.getUser({id: req.params.id}).then(user => res.json(user));
-});
-
-// register route
-app.post('/api/register', function(req, res, next) {
-const { name, password } = req.body;
-    userController.createUser({ name, password }).then(user =>
-        res.json({ user, msg: 'account created successfully' })
-    );
-});
-
-/**
- * TODO заменила функцию, не поняла как слушался порт в старом варианте
- * app.listen(srv.PORT, ()=>{
-        console.log(`Server started on ${srv.HOST}:${srv.PORT}`);
-    });
-*/
-app.listen(srv.PORT.value, (err) => {
-    if (err) {
-        return console.log('something bad happened', err)
-    }
-    console.log(`server is listening on ${srv.HOST.value}:${srv.PORT.value}`)
-});
-
-=======
 // Im - Удалить месенджер по id
 // DELETE http://localhost/api/ims/{id}
 app.delete('/api/ims/:id', async (req, res) => {
@@ -426,7 +342,7 @@ app.get('/api/contacts/:contactId/orgs', async (req, res) => {
     } else if (limit > itemMAXPerPage) {
         limit = itemMAXPerPage;
     } else if (limit < 1) {
-        limit = itemALL; 
+        limit = itemALL;
     }
     const result = await org.get(page, limit, contactId);
     res.send(result);
@@ -504,17 +420,14 @@ app.delete('/api/person/:id', async (req, res) => {
 // GET http://localhost/api/users/{userId}/contacts?page=5&limit=5
 app.get('/api/users/{userId}/contacts', async (req, res) => {
     const userId = req.params.id;
-    const page = parseInt(req.query.page, 10);
-    if (isNaN(page) || page < 1) {
-        page = 1;
-    }
-    const limit = parseInt(req.query.limit, 10);
+    let page = req.query.page ? parseInt(req.query.page, 10) : 1;
+    let limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
     if (isNaN(limit)) {
         limit = itemDefaultPerPage;
     } else if (limit > itemMAXPerPage) {
         limit = itemMAXPerPage;
     } else if (limit < 1) {
-        limit = itemALL; 
+        limit = itemALL;
     }
     const result = await contact.get(page, limit, userId);
     res.send(result);
@@ -551,55 +464,45 @@ app.delete('/api/contacts/:id', async (req, res) => {
 
 // #region User
 // User - Получить список пользователей
-// GET http://localhost/api/users
-// GET http://localhost/api/users/?page=5&limit=5
-app.get('/api/users', async (req, res) => {
-    const page = parseInt(req.query.page, 10);
-    if (isNaN(page) || page < 1) {
-        page = 1;
-    }
-    const limit = parseInt(req.query.limit, 10);
-    if (isNaN(limit)) {
-        limit = itemDefaultPerPage;
-    } else if (limit > itemMAXPerPage) {
-        limit = itemMAXPerPage;
-    } else if (limit < 1) {
-        limit = itemALL; 
-    }
-    const result = await user.get(page, limit);
-    res.send(result);
+// GET http://localhos:8888/api/users
+// GET http://localhost:8888/api/users/?page={page}&limit={limit}
+app.get('/api/users', function(req, res) {
+    //let page = req.query.page ? parseInt(req.query.page, 10) : 1;
+    //let limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
+    //TODO доделать выборку по лимиту
+    userController.getAllUsers().then(user => res.json(user));
 });
 
 // User - Получить детализацию пользователя по id
-// GET http://localhost/api/users/{id}
-app.get('/api/users/:id', async (req, res) => {
-    const result = await user.details(req.params.id);
-    res.send(result);
+// GET http://localhost:8888/api/users/{id}
+app.get('/api/users/:id', function(req, res) {
+    userController.getUser({id: req.params.id}).then(user => res.json(user));
 });
 
-// User - Добавить пользователя
-// POST http://localhost/api/users
-app.post('/api/users', async (req, res) => {
-    const result = user.add(req.body);
-    res.send(result);
-});
-
+/*
 // User - Изменить пользователя
-// POST http://localhost/api/users/{id}
-app.post('/api/users/:id', async (req, res) => {
+// POST http://localhost:8888/api/users/{id}/update
+app.post('/api/users/:id/update', async (req, res) => {
     const result = await user.update(req.params.id,req.body);
     res.send(result);
 });
 
 // User - Удалить пользователя по id
-// DELETE http://localhost/api/users/{id}
-app.delete('/api/users/:id', async (req, res) => {
+// DELETE http://localhost:8888/api/users/{id}/delete
+app.delete('/api/users/:id/delete', async (req, res) => {
     const result = await user.delete(req.params.id);
     res.send(result);
+});*/
+
+// User - Добавить пользователя
+// POST http://localhost:8888/api/users/register
+app.post('/api/users/register', function(req, res, next) {
+    const { name, password } = req.body;
+    userController.createUser({ name, password }).then(user =>
+        res.json({ user, msg: 'account created successfully' })
+    );
 });
-//#endregion
 
 app.listen(srv.PORT.value, ()=>{
-    console.log(`Server started on ${srv.HOST.value}:${srv.PORT.value}`);    
+    console.log(`Server started on ${srv.HOST.value}:${srv.PORT.value}`);
 });
->>>>>>> upstream/master
