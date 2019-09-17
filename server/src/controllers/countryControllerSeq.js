@@ -21,7 +21,7 @@ const Country = sequelize.define('country', {
     },
 },
 );
-// create table with user model
+// create table with country model
 Country.sync()
     .then(() => console.log('Oh yeah! Country table created successfully'))
     .catch(err => console.log('BTW, did you enter wrong database credentials?'));

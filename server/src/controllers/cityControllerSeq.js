@@ -24,7 +24,7 @@ const City = sequelize.define('city', {
     },
 },
 );
-// create table with user model
+// create table with city model
 City.sync()
     .then(() => console.log('Oh yeah! City table created successfully'))
     .catch(err => console.log('BTW, did you enter wrong database credentials?'));
