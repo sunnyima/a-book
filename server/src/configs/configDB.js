@@ -7,7 +7,7 @@ const options = {
     password : 'FeD4d1QOCV',
     dialect : 'mysql',
 };
-var pool = mysql.createPool(options);
+const pool = mysql.createPool(options);
 const connection = mysql.createConnection(options);
 
 module.exports = {pool, connection,options};

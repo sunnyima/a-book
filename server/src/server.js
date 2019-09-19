@@ -4,10 +4,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const userController =  require ('./controllers/userControllerSeq');
-const countryController = require('./controllers/countryControllerSeq');
-const cityController = require('./controllers/cityControllerSeq');
-const contactController = require('./controllers/contactControllerSeq');
+//const userController =  require ('./controllers/userControllerSeq');
+//const countryController = require('./controllers/countryControllerSeq');
+//const cityController = require('./controllers/cityControllerSeq');
+//const contactController = require('./controllers/contactControllerSeq');
+
+const testController = require('./controllers/testController');
 
 
 const srv = require('./configs/configSRV');
@@ -37,18 +39,20 @@ app.use(bodyParser.json());
 // Country - Получить список всех стран
 // GET http://localhost/api/countries
 // GET http://localhost/api/countries?page=5&limit=5
+/*
 app.get('/api/countries', async (req, res) => {
     //TODO query by limit
     //let page = parseInt(req.query.page, 10);
     //let limit = parseInt(req.query.limit, 10);
     countryController.getAllCountries().then(country => res.json(country));
 });
+*/
 
 // Country - Получить детализацию страны по id
 // GET http://localhost/api/countries/{id}
-app.get('/api/countries/:id', function(req, res) {
+/*app.get('/api/countries/:id', function(req, res) {
     countryController.getCountry({id: req.params.id}).then(country => res.json(country));
-});
+});*/
 
 /*// Country - Добавить страну
 // POST http://localhost:8888/api/countries/add
@@ -78,6 +82,7 @@ app.delete('/api/countries/:id/delete', async (req, res) => {
 // #region City
 // City - Получить список городов определенной страны
 // GET http://localhost/api/countries/{countryId}/cities
+/*
 app.get('/api/countries/:id/cities', function(req, res) {
     //TODO query by limit
     //let page = parseInt(req.query.page, 10);
@@ -90,6 +95,7 @@ app.get('/api/countries/:id/cities', function(req, res) {
 app.get('/api/cities/:id', async (req, res) => {
     cityController.getCity({id: req.params.id}).then(city => res.json(city));
 });
+*/
 
 /*// City - Добавить город
 // POST http://localhost/api/cities/add
@@ -120,7 +126,7 @@ app.delete('/api/cities/:id', async (req, res) => {
 // Email - Получить список электронных адресов определенного контакта
 // GET http://localhost/api/contacts/{contactId}/emails
 // GET http://localhost/api/contacts/{contactId}/emails?page=5&limit=5
-app.get('/api/contacts/:contactId/emails', async (req, res) => {
+/*app.get('/api/contacts/:contactId/emails', async (req, res) => {
     //TODO query by limit
     //let page = parseInt(req.query.page, 10);
     //let limit = parseInt(req.query.limit, 10);
@@ -131,7 +137,7 @@ app.get('/api/contacts/:contactId/emails', async (req, res) => {
 // GET http://localhost/api/contacts/{contactId}/emails/{id}
 app.get('/api/contacts/:contactId/emails/:id', async (req, res) => {
     contactController.getOneContactEmail({contactId: req.params.contactId, id : req.params.id}).then(email => res.json(email));
-});
+});*/
 
 /*// Email - Добавить электронный адрес
 // POST http://localhost/api/contacts/{contactId}/emails/add
@@ -162,7 +168,7 @@ app.delete('/api/contacts/:contactId/emails/:id/delete', async (req, res) => {
 // Phone - Получить список телефонов определенного контакта
 // GET http://localhost/api/contacts/{contactId}/phones
 // GET http://localhost/api/contacts/{contactId}/phones?page=5&limit=5
-app.get('/api/contacts/:contactId/phones', async (req, res) => {
+/*app.get('/api/contacts/:contactId/phones', async (req, res) => {
     //TODO query by limit
     //let page = parseInt(req.query.page, 10);
     //let limit = parseInt(req.query.limit, 10);
@@ -173,7 +179,7 @@ app.get('/api/contacts/:contactId/phones', async (req, res) => {
 // GET http://localhost/api/contacts/{contactId}/phones/{id}
 app.get('/api/contacts/:contactId/phones/:id', async (req, res) => {
     contactController.getOneContactPhone({contactId: req.params.contactId, id : req.params.id}).then(phone => res.json(phone));
-});
+});*/
 
 /*// Phone - Добавить номер телефона
 // POST http://localhost/api/contacts/{contactId}/phones/add
@@ -204,7 +210,7 @@ app.delete('/api/contacts/:contactId/phones/:id/delete', async (req, res) => {
 // Site - Получить список веб-страниц определенного контакта
 // GET http://localhost/api/contacts/{contactId}/sites
 // GET http://localhost/api/contacts/{contactId}/sites?page=5&limit=5
-app.get('/api/contacts/:contactId/sites', async (req, res) => {
+/*app.get('/api/contacts/:contactId/sites', async (req, res) => {
     //TODO query by limit
     //let page = parseInt(req.query.page, 10);
     //let limit = parseInt(req.query.limit, 10);
@@ -215,7 +221,7 @@ app.get('/api/contacts/:contactId/sites', async (req, res) => {
 // GET http://localhost/api/contacts/{contactId}/sites/{id}
 app.get('/api/contacts/:contactId/sites/:id', async (req, res) => {
     contactController.getOneContactSite({contactId: req.params.contactId, id : req.params.id}).then(site => res.json(site));
-});
+});*/
 
 /*// Site - Добавить веб-страницу к контакту
 // POST http://localhost/api/contacts/{contactId}/sites/add
@@ -246,18 +252,22 @@ app.delete('/api/contacts/:contactId/sites/:id/delete', async (req, res) => {
 // Im - Получить список месенджеров определенного контакта
 // GET http://localhost/api/contacts/{contactId}/ims
 // GET http://localhost/api/contacts/{contactId}/ims?page=5&limit=5
+/*
 app.get('/api/contacts/:contactId/ims', async (req, res) => {
     //TODO query by limit
     //let page = parseInt(req.query.page, 10);
     //let limit = parseInt(req.query.limit, 10);
     contactController.getAllContactMesangres({contactId: req.params.contactId}).then(mesanger => res.json(mesanger));
 });
+*/
 
 // Im - Получить детализацию мессенджера контакта по id
 // GET http://localhost/api/contacts/{contactId}/ims/{id}
+/*
 app.get('/api/contacts/:contactId/ims/:id', async (req, res) => {
     contactController.getOneContactMesanger({contactId: req.params.contactId, id : req.params.id}).then(mesanger => res.json(mesanger));
 });
+*/
 
 /*// Im - Добавить мессанджер к контакту
 // POST http://localhost/api/contacts/{contactId}/ims/add
@@ -289,30 +299,36 @@ app.delete('/api/contacts/:contactId/ims/:id/delete', async (req, res) => {
 // Contact - Получить список контактов определенного пользователя
 // GET http://localhost/api/users/{userId}/contacts
 // GET http://localhost/api/users/{userId}/contacts?page=5&limit=5
+/*
 app.get('/api/users/:userId/contacts', async (req, res) => {
     //let page = req.query.page ? parseInt(req.query.page, 10) : 1;
     //let limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
     //TODO доделать выборку по лимиту + поправить выборку контакпов по подзапросу
     contactController.getAllUserContacts({userId: req.params.userId}).then(contact => res.json(contact));
 });
+*/
 
 
 // Contact - Получить детализацию контакта по id
 // GET http://localhost/api/contacts
+/*
 app.get('/api/contacts', async (req, res) => {
     //let page = req.query.page ? parseInt(req.query.page, 10) : 1;
     //let limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
     //TODO доделать выборку по лимиту
     contactController.getAllContacts().then(contact => res.json(contact));
 });
+*/
 
 
 // Contact - Получить детализацию контакта по id
 // GET http://localhost/api/contacts/{id}
+/*
 app.get('/api/contacts/:id', async (req, res) => {
     const result = await contact.details(req.params.id);
     res.send(result);
 });
+*/
 
 /*// Contact - Добавить контакт
 // POST http://localhost/api/contacts
@@ -343,6 +359,7 @@ app.delete('/api/contacts/:id/delete', async (req, res) => {
 // User - Получить список пользователей
 // GET http://localhos:8888/api/users
 // GET http://localhost:8888/api/users/?page={page}&limit={limit}
+/*
 app.get('/api/users', function(req, res) {
     //let page = req.query.page ? parseInt(req.query.page, 10) : 1;
     //let limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
@@ -355,6 +372,7 @@ app.get('/api/users', function(req, res) {
 app.get('/api/users/:id', function(req, res) {
     userController.getUser({id: req.params.id}).then(user => res.json(user));
 });
+*/
 
 /*
 // User - Изменить пользователя
@@ -375,11 +393,16 @@ app.delete('/api/users/:id/delete', async (req, res) => {
 
 // User - Добавить пользователя
 // POST http://localhost:8888/api/users/register
-app.post('/api/users/register', function(req, res, next) {
+/*app.post('/api/users/register', function(req, res, next) {
     const { name, password } = req.body;
     userController.createUser({ name, password }).then(user =>
         res.json({ user, msg: 'account created successfully' })
     );
+});*/
+
+
+app.get('/api/test', function(req, res) {
+    testController.getAllUsers().then(user => res.json(user));
 });
 
 // запуск сервера

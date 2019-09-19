@@ -2,13 +2,56 @@ const Sequelize = require('sequelize');
 const {options} = require('../configs/configDB');
 const bcrypt = require('bcrypt');
 
+
+
 // initialize an instance of Sequelize
 const sequelize = new Sequelize(options);// check the databse connection
 sequelize.authenticate()
     .then(() => console.log('Connection has been established successfully.'))
     .catch(err => console.error('Unable to connect to the database:', err));
 
+
 const User = sequelize.define('user', {
+    username: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        unique: true,
+        validate: {
+            notEmpty: true
+        }
+    },
+    phone: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+            not: ['[a-z]', 'i']
+        }
+    },
+    email: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        unique: true,
+        validate: {
+            isEmail: true
+        }
+    },
+    password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        validate: {
+            notEmpty: true
+        }
+    }
+});
+User.associate = (models) => {
+    User.belongsToMany(models.Groups, {
+        through: 'GroupUsers',
+        as: 'groups',
+        foreignKey: 'userId'
+    });
+};
+
+/*const User = sequelize.define('user', {
     // attributes
     id: {
         type: Sequelize.INTEGER,
@@ -41,7 +84,7 @@ const User = sequelize.define('user', {
             return bcrypt.compare(password, this.password);
         }
     }
-});
+});*/
 // create table with user model
 User.sync()
     .then(() => console.log('Oh yeah! User table created successfully'))

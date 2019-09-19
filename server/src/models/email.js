@@ -8,18 +8,18 @@ sequelize.authenticate()
     .then(() => console.log('Connection has been established successfully.'))
     .catch(err => console.error('Unable to connect to the database:', err));
 
-class Email extends Model {}
-Email.init({
-                    // attributes
-                    contactId: {
-                        type: Sequelize.INTEGER,
-                        allowNull: false
-                    },
-                    email: {
-                        type: Sequelize.STRING,
-                        allowNull: false
-                    },
-                }, { sequelize, modelName: 'email' });
+const Email = sequelize.define('email', {
+        // attributes
+        contactId: {
+            type: Sequelize.INTEGER,
+            allowNull: false
+        },
+        email: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+    },
+);
 // create table with email model
 Email.sync()
     .then(() => console.log('Oh yeah! Email table created successfully'))
