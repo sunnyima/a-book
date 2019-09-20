@@ -1,23 +1,26 @@
 const {Sequelize, sequelize} = require('./sequelize');
-const Contact = sequelize.define('contacts', {
+const Site = sequelize.define('sites', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    userId: {
+    contactId: {
         type: Sequelize.INTEGER,
-        required: true,
         references: {
-            model: 'users',
+            model: 'contacts',
             key: 'id',
         },
     },
-    title: {
+    url: {
+        type: Sequelize.STRING,
+        required: true,
+    },
+    comment: {
         type: Sequelize.STRING,
     },
 }, {freezeTableName: true});
 
-Contact.sync();
+Site.sync();
 
-module.exports = Contact;
+module.exports = Site;

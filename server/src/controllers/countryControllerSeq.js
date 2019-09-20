@@ -1,44 +1,89 @@
-const Sequelize = require('sequelize');
-const {options} = require('../configs/configDB');
-const bcrypt = require('bcrypt');
+const Country = require('../models/country');
+const City = require('../models/city');
 
-// initialize an instance of Sequelize
-const sequelize = new Sequelize(options);// check the databse connection
-sequelize.authenticate()
-    .then(() => console.log('Connection has been established successfully.'))
-    .catch(err => console.error('Unable to connect to the database:', err));
+Country.hasMany(City, {foreignKey: 'countryId', as: 'cities'});
 
-const Country = sequelize.define('country', {
-    // attributes
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        primaryKey: true
-    },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-},
-);
-// create table with country model
-Country.sync()
-    .then(() => console.log('Oh yeah! Country table created successfully'))
-    .catch(err => console.log('BTW, did you enter wrong database credentials?'));
-
-// create some helper functions to work on the database
-const createCountry = async ({ name }) => {
-    return await Country.create({ name });
+/**
+ * Создание новой страны
+ * @param country
+ * @returns {Promise<*>}
+ */
+const createCountry = async ({ country}) => {
+    return await Country.create({ country });
 };
 
-const getAllCountries = async () => {
+/**
+ * списк всех стран с городами
+ * @returns {Promise<void>}
+ */
+const getAllCountriesWithCities = async () => {
+    //Country.hasMany(City, {foreignKey: 'channel_fk', as: 'cities'});
+    return await Country.findAll({
+        include: [{model: City, as: 'cities'}]
+    });
+};
+
+/**
+ * список стран
+ * @returns {Promise<void>}
+ */
+const getAllCountries= async () => {
     return await Country.findAll();
 };
 
+/**
+ * одна страна с городами
+ * @param obj
+ * @returns {Promise<void>}
+ */
+const getCountryWithCities = async obj => {
+    return await Country.findOne({
+        where: obj,
+        include: [{model: City, as: 'cities'}]
+    });
+};
+
+/**
+ * одна страна
+ * @param obj
+ * @returns {Promise<void>}
+ */
 const getCountry = async obj => {
     return await Country.findOne({
         where: obj,
     });
 };
 
-module.exports = {createCountry, getAllCountries, getCountry};
+/**
+ * удалить страну
+ * @param obj
+ * @returns {Promise<void>}
+ */
+const deleteCountry = async obj => {
+    return await Country.delete({
+        where: obj,
+    });
+};
+
+/**
+ * редактировать страну
+ * @param obj
+ * @returns {Promise<void>}
+ */
+const updateCountry = async (where, obj) => {
+    return await Country.update({
+        where: where,
+        obj,
+    });
+};
+
+
+module.exports = {
+                    createCountry,
+                    getAllCountries,
+                    getAllCountriesWithCities,
+                    getCountry,
+                    getCountryWithCities,
+                    updateCountry,
+                    deleteCountry,
+                };
