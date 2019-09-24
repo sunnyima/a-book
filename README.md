@@ -49,7 +49,7 @@ Framework для верстки - bootstrap
 ### Контакт
     Описание находится /server/controllers/contactController.js
 ### Пользователь
-    Описание находится /server/controllers/userController.js
+    Описание находится /server/controllers/userControllerSeq.js
 ### Организация
     Описание находится /server/controllers/orgController.js
 
