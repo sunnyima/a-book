@@ -3,7 +3,7 @@ Addres Book - Online Contact Manager
 
 ## Описание проекта
 
-Проект реализуется в рамках стажировки Geekbrains 24.08 - 12.10 2019 года.
+Проект реализуется в рамках стажировки Geekbrains 24.08 - 12.10 2019 года..
 
 Проект предоставляет REST API к онлайн базе контактов, кроме этого в составе проекта находится собственные клиентский и административные модули.
 
@@ -49,7 +49,7 @@ Framework для верстки - bootstrap
 ### Контакт
     Описание находится /server/controllers/contactController.js
 ### Пользователь
-    Описание находится /server/controllers/userController.js
+    Описание находится /server/controllers/userControllerSeq.js
 ### Организация
     Описание находится /server/controllers/orgController.js
 
