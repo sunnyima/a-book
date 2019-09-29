@@ -1,0 +1,536 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	height: 100%;
+	font-family: "PT Sans", Arial, sans-serif;
+	font-size: 16px;
+	line-height: 18px;
+	color: #000000;
+	background-color: #7e7e7e;
+}
+
+.wraper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	padding: 0 40px;
+}
+
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	border: 0;
+	padding: 0;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}
+
+.list-hiden {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: #000;
+}
+
+/*стили шапки, логотип*/
+.header {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	font-family: "Montserrat+Alternates", Arial, sans-serif;
+	padding: 15px 0;
+	color: #ffffff;
+	background-color: #7e7e7e;
+}
+
+.logo a,
+.logo {
+	font-size: 32px;
+	line-height: 34px;
+	cursor: pointer;
+
+	color: rgba(255, 255, 255, 0.5);
+	margin: 0;
+	padding: 20px;
+	outline: none;
+}
+
+.logo:first-letter {
+	font-size: 46px;
+	font-weight: 700;
+	background: linear-gradient(-45deg, rgb(158, 178, 163), rgb(252, 252, 252), rgb(182, 225, 252), rgb(121, 175, 121), rgb(212, 212, 212), rgb(131, 170, 134));
+	-webkit-background-clip: text;
+	color: transparent;
+	opacity: 0.7;
+}
+
+/*Содержимое страницы стили для main */
+
+.user-navigation {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.user-navigation a {
+	font-size: 16px;
+	line-height: 18px;
+	cursor: pointer;
+	color: #fff;
+}
+
+.user-navigation a:hover,
+.logo a:hover,
+.logo:hover {
+	text-decoration: none;
+	color: rgba(223, 255, 223, 0.5);
+}
+
+.user-navigation li:not(:last-child) {
+	padding-left: 5px;
+}
+
+.btn {
+	border-radius: 3px;
+}
+
+.btn-secondary {
+	padding: 0 5px;
+	background-color: #e0e0e0;
+	color: #000000;
+	border: none;
+}
+
+.btn-secondary:hover {
+	background-color: #ffffff;
+	color: #000000;
+}
+
+.main {
+	min-height: 200px;
+	background: url(../img/Background.jpg) repeat-y #b7b7b7 center center;
+	background-size: 100%;
+	opacity: 0.7;
+	position: relative;
+	background-attachment: fixed;
+	flex: 1 0 auto;
+	-webkit-box-shadow: 0px 0px 27px 2px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 0px 27px 2px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px 0px 27px 2px rgba(0, 0, 0, 0.75);
+	border-radius: 10px;
+}
+
+/*Подвал сайта*/
+
+.footer {
+	display: flex;
+	align-items: center;
+	min-height: 100px;
+	background-color: rgba(57, 62, 82, 0.82);
+	justify-content: space-between;
+	padding: 20px 40px;
+	color: #fff;
+	box-shadow: inset 0 0.7em 0 0 rgba(183, 183, 183, 0.5);
+	font-family: "Montserrat+Alternates", Arial, sans-serif;
+	font-size: 12px;
+	line-height: 10px;
+	font-weight: 300;
+	flex: 0 0 auto;
+	border-radius: 10px;
+}
+
+.social-button {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	background-color: inherit;
+	border-radius: 50%;
+}
+
+.social-button:hover {
+	background-color: #7e7e7e;
+}
+
+.social-list {
+	padding: 0px;
+	display: flex;
+	width: 130px;
+	list-style: none;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+/*стили формы авторизации*/
+
+.form-group {
+	display: flex;
+}
+
+.auth,
+.editing {
+	background: rgba(57, 62, 82, 0.56);
+	color: transparent;
+	padding: 20px;
+	border-radius: 10px;
+	color: #fff;
+	width: 500px;
+	margin: 50px auto;
+	border: 1px solid rgba(183, 183, 183);
+}
+
+.form-control {
+	height: calc(1em + .5rem + 0.5px);
+	background-color: rgb(231, 255, 231);
+	color: #000000;
+	border: none;
+	border-radius: 3px;
+}
+
+/*стили для личного кабинета*/
+
+.card {
+	margin: 0;
+	font-family: "Montserrat+Alternates", Arial, sans-serif;
+	color: #fff;
+	font-size: 16px;
+	line-height: 24px;
+	border-radius: 10px;
+	border: none;
+}
+
+.card .nav-item {
+	position: relative;
+	margin-top: 10px;
+}
+
+.card .nav-item a {
+	padding-right: 40px;
+}
+
+.card .nav-item:first-child::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/address.ico");
+	background-color: inherit;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+.card .nav-item:nth-child(2)::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/star.ico");
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+.card .nav-item:nth-child(3)::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/customers.ico");
+	position: absolute;
+	right: 5px;
+	top: 5px;
+}
+
+.card-header {
+	background-color: rgba(57, 62, 82, 0.82);
+
+}
+
+.card  {
+	color: #000000;
+	padding: 20px;
+}
+
+.card-body-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	padding: 0 0 30px 0;
+
+}
+
+.card-header:first-child {
+	border-radius: 10px 10px 0 0;
+}
+
+.nav-tabs .nav-link {
+	border-radius: 10px 10px 0 0;
+	border: none;
+	color: #fff;
+
+}
+
+.nav-tabs .nav-link:hover {
+	border: none;
+	box-shadow: 8px -7px 9px -9px;
+	color: #000000;
+	background: rgba(180, 180, 180, 0.59);
+}
+
+.nav-tabs .nav-link:active {
+	color: rgb(57, 62, 82);
+}
+
+/*поиск в кабинете*/
+.search {
+	margin: 20px 20px;
+	border: 1px solid #a2a2a2;
+	border-radius: 5px;
+	background: rgb(255, 255, 255);
+}
+
+.search .form-control {
+	height: calc(1em + .9rem + 0.5px);
+}
+
+.wraper .search .btn-secondary::after {
+	content: "";
+	width: 25px;
+	height: 25px;
+	background-image: url("/img/search.ico");
+	background-color: inherit;
+	background-position: 0 0;
+	position: absolute;
+	right: 10px;
+	top: -12px;
+}
+
+/*карточки контактов, иконки*/
+.card-body-top .btn-secondary {
+	position: relative;
+	padding: 5px 10px;
+	padding-right: 44px;
+}
+
+.card-body-top .btn-secondary::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/plus.ico");
+	background-color: inherit;
+	background-position: 0 0;
+	position: absolute;
+	right: 8px;
+	top: 5px;
+}
+
+.card-body-top .sort::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/sort-ascend.ico");
+	background-color: inherit;
+	background-position: 0 0;
+	position: absolute;
+	right: 8px;
+	top: 5px;
+}
+
+.card-body-top .sort:active::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/sort-descend.ico");
+	background-color: inherit;
+	background-position: 0 0;
+	position: absolute;
+	right: 8px;
+	top: 5px;
+}
+
+.wraper .form-control {
+	background-color: rgb(255, 255, 255);
+	width: 300px;
+}
+
+.wraper .search .btn-secondary {
+	position: relative;
+	padding: 0 20px;
+	background-color: rgb(255, 255, 255);
+
+}
+
+.search input[type="search"]::-webkit-input-placeholder {
+	color: #000;
+	font-size: 16px;
+	line-height: 24px;
+	opacity: 0.7;
+}
+
+/*стили для кнопок редактировать и удалить контакт*/
+.card-body .actions .btn-secondary {
+	position: relative;
+	padding: 5px 10px;
+	padding-right: 44px;
+}
+
+.actions a:first-child::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/pencil.ico");
+	background-color: inherit;
+	background-position: 0 0;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+.actions a:last-child::after {
+	content: "";
+	width: 24px;
+	height: 24px;
+	background-image: url("/img/busy.ico");
+	background-color: inherit;
+	background-position: 0 0;
+	position: absolute;
+	right: 10px;
+	top: 5px;
+}
+
+
+.info-list {
+	list-style: none;
+	text-align: left;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.grid div {
+	background: #ffffff;
+	color:#000; 
+}
+
+.actions {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 60px 0;
+	width: 100%;
+}
+
+.actions a {
+	margin: 10px;
+}
+
+.card-item .actions {
+	display: none;
+	background-color: rgba(57, 62, 82, 0.82);
+	z-index: 10;
+	border-radius: 10px;
+	height: 100%;
+	-webkit-box-shadow: 1px 2px 11px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 1px 2px 11px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 1px 2px 11px 0px rgba(0, 0, 0, 0.75);
+}
+
+.card-item:hover .actions {
+	display: block;
+}
+
+.card-item:hover {
+	box-shadow: 0px 0px 10px -2px #fff;
+
+}
+
+.card-title {
+	margin: 10px;
+}
+
+/*Стили для формы редактирования контакта*/
+.form-editing .grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-column-gap: 150px;
+	grid-row-gap: 20px;
+}
+
+.editing {
+	width: auto;
+	padding: 40px 40px;
+	position: absolute;
+	background-color: rgba(57, 62, 82, 0.9);
+	position: fixed;
+	top: 0;
+	left: 0;
+	margin: 0;
+	height: 100%;
+	width: 100%;
+}
+
+.editing h2 {
+	font-family: "Montserrat+Alternates", Arial, sans-serif;
+	padding: 15px 0;
+	color: #ffffff;
+	margin: 0;
+	padding: 0 0 40px 0;
+}
+
+.editing .form-bottom {
+	text-align: center;
+	padding: 20px 0 0 0;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.editing .form-bottom .btn {
+	margin: 20px 0 0 20px;
+}
+
+.form-control-select {
+	padding: 0 10px;
+}
+
+.editing-inp .check-favorites {
+	margin: 4px 15px;
+}
+
+.groups-list .card-body a {
+	text-decoration: none;
+	display: block;
+}
+
+.groups-list .card-body a:hover {
+	color: #fff;
+}
+
+.card-body-top h4 {
+	color: #7e7e7e;
+}
+
+.editing-inp .form-control{
+	width: 100%;
+}
+.groups .grid{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+.form-auth .form-control{
+	width: 100%;
+}
+.card-body .search .form-control{
+border-right: 1px solid #7e7e7e;
+	border-radius: 5px 0 0 5px;
+}
