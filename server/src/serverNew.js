@@ -60,7 +60,7 @@ app.get('/api/countries/:id/cities', async (req, res) =>{
 // POST http://localhost:8888/api/countries/add
 // TODO
 app.get('/api/countries/add', async (req, res) => {
-    const result = await ountryController.createCountry({country : req.body.country});
+    const result = await countryController.createCountry({country : req.body.country});
 });
 
 // Country - Изменить страну
@@ -127,7 +127,7 @@ app.get('/api/users/:userId/contacts', async (req, res) => {
     //let page = req.query.page ? parseInt(req.query.page, 10) : 1;
     //let limit = req.query.limit ? parseInt(req.query.limit, 10) : 0;
     //TODO доделать выборку по лимиту + поправить выборку контакпов по подзапросу
-    const result = await contactController.getUserWithContacts({userId: req.params.userId}).then(contact => res.json(contact));
+    const result = await contactController.getOneUserContacts({userId: req.params.userId}).then(contact => res.json(contact));
 });
 
 
@@ -216,12 +216,19 @@ app.get('/api/users/:id/delete', async (req, res) => {
 
 // User - Добавить пользователя
 // GET http://localhost:8888/api/users/register
-app.get('/api/users/register', async (req, res, next)=> {
-    const { username, password, email, mobileNumber} = req.body;
-    const status = 'new';
-    const result = await userController.createUser({ password, username, email, mobileNumber,status }).then(user =>
-        res.json({ user, msg: 'account created successfully' })
-    );
+app.get('/api/register', async (req, res, next)=> {
+    const newUser =  { username, password, email, mobileNumber} = req.body;
+    /*const newUser = {
+        password : 'test',
+        username : 'test',
+        email : 'test@test.com',
+        mobileNumber : '111111111',
+        };*/
+    newUser.status = 'new';
+    const result = await userController.createUser(newUser)
+        .then(user =>
+                res.json({ user, msg: 'account created successfully' })
+        );
 });
 
 // запуск сервера

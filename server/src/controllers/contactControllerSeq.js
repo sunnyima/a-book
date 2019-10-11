@@ -68,8 +68,8 @@ const getAllUserFullContacts = async obj => {
  * @param obj
  * @returns {Promise<void>}
  */
-const getOneUserContact = async obj => {
-    return await UserContact.findOne({
+const getOneUserContacts = async obj => {
+    return await Contact.findOne({
         where: obj,
     });
 };
@@ -117,7 +117,7 @@ const deleteContact = async obj => {
 module.exports = {
                     createContact,
                     getFullContact,
-                    getOneUserContact,
+                    getOneUserContacts,
                     getAllUserContacts,
                     getAllUserFullContacts,
                     getContact,

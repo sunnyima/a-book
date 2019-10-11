@@ -5,8 +5,16 @@ User.hasMany(Contact, {foreignKey: 'userId', as: 'contacts'});
 
 
 // create some helper functions to work on the database
-const createUser = async ({ password, username, email, mobileNumber, status }) => {
-    return await User.create({ password, username, email, mobileNumber, status });
+const createUser = async (newUser) => {
+    console.log(newUser);
+
+    return await User.create(
+        {
+            password : newUser.password,
+            username : newUser.username,
+            email : newUser.email,
+            mobileNumber : newUser.mobileNumber,
+            status : newUser.status});
 };
 
 /**
